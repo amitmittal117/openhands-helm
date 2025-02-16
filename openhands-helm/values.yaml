@@ -16,4 +16,4 @@ env:
 
 volumes:
   dockerSockPath: /var/run/docker.sock
-  openhandsStatePath: ~/.openhands-state
+  openhandsStatePath: /home/gravity/.openhands-state

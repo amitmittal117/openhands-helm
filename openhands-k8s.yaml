@@ -43,7 +43,7 @@ spec:
             path: /var/run/docker.sock
         - name: openhands-state
           hostPath:
-            path: ~/.openhands-state
+            path: /home/gravity/.openhands-state
 
 ---
 apiVersion: v1
