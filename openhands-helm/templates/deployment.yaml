@@ -15,7 +15,6 @@ spec:
       labels:
         app: openhands
     spec:
-      dnsPolicy: {{ .Values.networking.dnsPolicy }}
       containers:
         - name: openhands-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
