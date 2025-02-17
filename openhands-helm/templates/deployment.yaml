@@ -15,8 +15,8 @@ spec:
       labels:
         app: openhands
     spec:
-      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: {{ .Values.networking.hostNetwork }}
+      dnsPolicy: {{ .Values.networking.dnsPolicy }}
       containers:
         - name: openhands-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -40,3 +40,14 @@ spec:
         - name: openhands-state
           hostPath:
             path: {{ .Values.volumes.openhandsStatePath }}
+
+      {{- with .Values.hostAliases }}
+      {{- if .enabled }}
+      hostAliases:
+        - ip: "{{ .ip }}"
+          hostnames:
+            {{- range .hostnames }}
+            - "{{ . }}"
+            {{- end }}
+      {{- end }}
+      {{- end }}
