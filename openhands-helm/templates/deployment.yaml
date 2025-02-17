@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openhands-app
-  namespace: openhands
   labels:
     app: openhands
 spec:
@@ -16,25 +15,28 @@ spec:
         app: openhands
     spec:
       containers:
-        - name: openhands-app
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: SANDBOX_RUNTIME_CONTAINER_IMAGE
-              value: "{{ .Values.env.SANDBOX_RUNTIME_CONTAINER_IMAGE }}"
-            - name: LOG_ALL_EVENTS
-              value: "{{ .Values.env.LOG_ALL_EVENTS }}"
-          ports:
-            - containerPort: 3000
-          volumeMounts:
-            - name: docker-sock
-              mountPath: /var/run/docker.sock
-            - name: openhands-state
-              mountPath: /.openhands-state
+      - name: openhands-app
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          - name: SANDBOX_RUNTIME_CONTAINER_IMAGE
+            value: "{{ .Values.env.SANDBOX_RUNTIME_CONTAINER_IMAGE }}"
+          - name: LOG_ALL_EVENTS
+            value: "{{ .Values.env.LOG_ALL_EVENTS }}"
+          # Optional environment variable if you want to point to Ollama in another namespace:
+          - name: LITELLM_OLLAMA_ENDPOINT
+            value: "{{ .Values.env.LITELLM_OLLAMA_ENDPOINT }}"
+        ports:
+          - containerPort: 3000
+        volumeMounts:
+          - name: docker-sock
+            mountPath: /var/run/docker.sock
+          - name: openhands-state
+            mountPath: /.openhands-state
       volumes:
-        - name: docker-sock
-          hostPath:
-            path: {{ .Values.volumes.dockerSockPath }}
-        - name: openhands-state
-          hostPath:
-            path: {{ .Values.volumes.openhandsStatePath }}
+      - name: docker-sock
+        hostPath:
+          path: {{ .Values.volumes.dockerSockPath }}
+      - name: openhands-state
+        hostPath:
+          path: {{ .Values.volumes.openhandsStatePath }}
