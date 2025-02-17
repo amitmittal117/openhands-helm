@@ -32,6 +32,13 @@ spec:
               value: "docker.all-hands.dev/all-hands-ai/runtime:0.24-nikolaik"
             - name: LOG_ALL_EVENTS
               value: "true"
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
           ports:
             - containerPort: 3000
           volumeMounts:

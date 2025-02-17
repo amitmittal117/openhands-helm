@@ -15,7 +15,6 @@ spec:
       labels:
         app: openhands
     spec:
-      hostNetwork: {{ .Values.networking.hostNetwork }}
       dnsPolicy: {{ .Values.networking.dnsPolicy }}
       containers:
         - name: openhands-app
@@ -40,14 +39,3 @@ spec:
         - name: openhands-state
           hostPath:
             path: {{ .Values.volumes.openhandsStatePath }}
-
-      {{- with .Values.hostAliases }}
-      {{- if .enabled }}
-      hostAliases:
-        - ip: "{{ .ip }}"
-          hostnames:
-            {{- range .hostnames }}
-            - "{{ . }}"
-            {{- end }}
-      {{- end }}
-      {{- end }}
