@@ -17,13 +17,3 @@ env:
 volumes:
   dockerSockPath: /var/run/docker.sock
   openhandsStatePath: /home/gravity/.openhands-state
-
-networking:
-  hostNetwork: true
-  dnsPolicy: ClusterFirstWithHostNet
-
-hostAliases:
-  enabled: true
-  ip: "192.168.1.171"
-  hostnames:
-    - "host.docker.internal"
