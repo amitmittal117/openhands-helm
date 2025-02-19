@@ -1,26 +1,5 @@
-replicaCount: 1
-
-image:
-  repository: docker.all-hands.dev/all-hands-ai/openhands
-  tag: "0.24"
-  pullPolicy: Always
-
-service:
-  type: NodePort
+openhands:
+  image: "docker.all-hands.dev/all-hands-ai/openhands:0.24"
   port: 3000
-  nodePort: 30000
-
-env:
-  SANDBOX_RUNTIME_CONTAINER_IMAGE: "docker.all-hands.dev/all-hands-ai/runtime:0.24-nikolaik"
-  LOG_ALL_EVENTS: "true"
-  LITELLM_OLLAMA_ENDPOINT: "http://ollama.ollama.svc.cluster.local:11434"
-
-volumes:
-  dockerSockPath: /var/run/docker.sock
-  openhandsStatePath: /home/gravity/.openhands-state
-
-hostAliases:
-  enabled: true
-  ip: "192.168.1.171"
-  hostnames:
-    - "host.docker.internal"
+  nodePort: 30010
+  volumePath: "~/.openhands-state"
