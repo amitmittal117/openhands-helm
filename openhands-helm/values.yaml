@@ -2,4 +2,4 @@ openhands:
   image: "docker.all-hands.dev/all-hands-ai/openhands:0.24"
   port: 3000
   nodePort: 30000
-  volumePath: "~/.openhands-state"
+  volumePath: "/home/gravity/.openhands-state"
